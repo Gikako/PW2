@@ -6,7 +6,6 @@ import LoginPage from '../Paginas/LoginPage'
 import NotFoundPage from '../Paginas/NotFoundPage'
 import PerfilPage from '../Paginas/PerfilPage'
 import RegisterPage from '../Paginas/RegisterPage'
-import CobroPage from '../Paginas/CobroPage'
 import HistorialCompraPage from '../Paginas/HistorialCompraPage'
 import ReservacionesCamionPage from '../Paginas/ReservacionesCamionPage'
 import ReservacionesVuelosPage from '../Paginas/ReservacionesVuelosPage'
@@ -23,7 +22,7 @@ export default function AppRouter() {
             <Route  path='/login' element={<LoginPage/>}/>
             <Route  path='/register' element={<RegisterPage/>}/>
             <Route  path='/perfil' element={<PerfilPage/>}/>
-            <Route  path='/cobro' element={<CobroPage/>}/>
+          
             <Route  path='/historialcompra' element={<HistorialCompraPage/>}/>
             <Route  path='/reservarcamion' element={<ReservacionesCamionPage/>}/>
             <Route  path='/reservarvuelo' element={<ReservacionesVuelosPage/>}/>

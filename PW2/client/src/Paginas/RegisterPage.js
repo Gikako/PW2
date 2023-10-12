@@ -51,7 +51,6 @@ export default function RegisterPage() {
               <Form.Control type="name" placeholder="Agencia de vuelo" />
             </Form.Group>
           </Row>
-
           <Button onClick={() => navigate('/login')} variant="primary" type="submit">
             Registrar
           </Button>
