@@ -1,0 +1,49 @@
+const Compra = require('./models/Buy');
+const { validationResult } = require('express-validator');
+const User = require('../models/User'); // Asegúrate de tener el modelo Usuario importado
+
+// Controlador para crear una nueva compra
+const crearCompra = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { viajeSeparado, usuario } = req.body;
+
+    try {
+        // Verificar si el viajeSeparado y el usuario existen
+        const [viajeSeparadoExistente, usuarioExistente] = await Promise.all([
+            ViajeSeparado.findById(viajeSeparado),
+            Usuario.findById(usuario)
+        ]);
+
+        if (!viajeSeparadoExistente || !usuarioExistente) {
+            return res.status(400).json({ error: 'Viaje separado o usuario no encontrado' });
+        }
+
+        const nuevaCompra = new Compra({ viajeSeparado, usuario });
+        await nuevaCompra.save();
+        res.status(201).json({ mensaje: 'Compra creada correctamente', compra: nuevaCompra });
+    } catch (error) {
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+// Controlador para obtener todas las compras de un usuario
+const obtenerComprasPorUsuario = async (req, res) => {
+    const userId = req.params.userId; // Obtén el ID del usuario de los parámetros de la solicitud
+
+    try {
+        // Encuentra todas las compras asociadas al usuario
+        const compras = await Compra.find({ usuario: userId }).populate('viajeSeparado');
+        res.status(200).json(compras);
+    } catch (error) {
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+module.exports = {
+    crearCompra,
+    obtenerComprasPorUsuario,
+};
